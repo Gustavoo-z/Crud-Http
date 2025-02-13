@@ -6,18 +6,35 @@ const ui = {
 
         try {
             const pensamentos = await api.buscarPensamentos()
-            pensamentos.forEach(pensamento => {
-                listaPensamentos.innerHTML += `
-          <li class="li-pensamento" data-id="${pensamento.id}">
-          <img src="assets/imagens/aspas-azuis.png" alt="Aspas azuis" class="icone-aspas">
-          <div class="pensamento-conteudo">${pensamento.conteudo}</div>
-          <div class="pensamento-autoria">${pensamento.autoria}</div>
-          </li>
-        `
-            })
+            pensamentos.forEach(ui.adicionarPensamentoNaLista)    
         } catch (error) {
             
         }
+    },
+
+    adicionarPensamentoNaLista(pensamento) {
+        const listaPensamentos = document.querySelector('#lista-pensamentos')
+        const li = document.createElement('li')
+        li.setAttribute('data-id', pensamento.id)
+        li.classList.add('li-pensamento')
+
+        const iconeAspas = document.createElement('img')
+        iconeAspas.src = 'assets/imagens/aspas-azuis.png'
+        iconeAspas.alt = 'Aspas azuis'
+        iconeAspas.classList.add('icone-aspas')
+
+        const divPensamento = document.createElement('div')
+        divPensamento.classList.add('pensamento-conteudo')
+        divPensamento.textContent = pensamento.conteudo
+
+        const divAutoria = document.createElement('div')
+        divAutoria.classList.add('pensamento-autoria')
+        divAutoria.textContent = pensamento.autoria
+
+        li.appendChild(iconeAspas)
+        li.appendChild(divPensamento)
+        li.appendChild(divAutoria)
+        listaPensamentos.appendChild(li)
     }
 }
 
