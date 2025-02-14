@@ -1,6 +1,14 @@
 import api from "./api.js"
 
 const ui = {
+
+    async preencherFormulario(pensamentoId) {
+        const pensamento = await api.buscarPensamentoId(pensamentoId)
+        document.getElementById('pensamento-id').value = pensamento.id
+        document.getElementById('pensamento-conteudo').value = pensamento.conteudo
+        document.getElementById('pensamento-autoria').value = pensamento.autoria
+    },
+
     async renderizarPensamentos() {
         const listaPensamentos = document.querySelector('#lista-pensamentos')
 
@@ -31,9 +39,23 @@ const ui = {
         divAutoria.classList.add('pensamento-autoria')
         divAutoria.textContent = pensamento.autoria
 
+        const botaoEditar = document.createElement('button')
+        botaoEditar.classList.add('botao-editar')
+        botaoEditar.onclick = () => ui.preencherFormulario(pensamento.id)
+
+        const iconeEditar = document.createElement('img')
+        iconeEditar.src = 'assets/imagens/icone-editar.png'
+        iconeEditar.alt = 'Editar'
+        botaoEditar.appendChild(iconeEditar)
+
+        const icones = document.createElement('div')
+        icones.classList.add('icones')
+        icones.appendChild(botaoEditar)
+
         li.appendChild(iconeAspas)
         li.appendChild(divPensamento)
         li.appendChild(divAutoria)
+        li.appendChild(icones)
         listaPensamentos.appendChild(li)
     }
 }
