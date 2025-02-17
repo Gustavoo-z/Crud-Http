@@ -282,3 +282,24 @@ span {
   background: #041832;
   margin: 96px 0 48px 0;
 }
+
+.paragrafo-pensamento {
+  margin-left: auto;
+  margin-right: auto;
+  color: red;
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
