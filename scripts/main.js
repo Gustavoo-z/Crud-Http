@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const formulario = document.getElementById('pensamento-form')
     formulario.addEventListener('submit', manipularSubmit)
-})
 
-const botaoCancelar = document.querySelector('#botao-cancelar');
+    const botaoCancelar = document.querySelector('#botao-cancelar');
 
-botaoCancelar.addEventListener('click', () => {
+    botaoCancelar.addEventListener('click', () => {
     document.getElementById("pensamento-form").reset();
+})
 })
