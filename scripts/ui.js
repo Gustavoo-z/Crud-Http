@@ -77,6 +77,18 @@ const ui = {
     },
 
     apiVazia() {
+        const CampoBusca = document.querySelector('#busca-container');
+        CampoBusca.classList.add('hidden');
+
+        const botaoCancelar = document.querySelector('#botao-cancelar');
+
+        botaoCancelar.addEventListener('click', () => {
+        pensamentoForm.classList.add('hidden')
+        containerForm.style.background = 'transparent'
+        containerForm.style.boxShadow = 'none'
+        botaoPensamento.classList.remove('hidden')
+        })
+
         const listaPensamentos = document.getElementById('lista-pensamentos')
         const divMural = document.createElement('div')
         divMural.classList.add('center')
@@ -111,6 +123,8 @@ const ui = {
     },
 
     erroApi() {
+        const CampoBusca = document.querySelector('#busca-container');
+        CampoBusca.classList.add('hidden');
         const listaPensamentos = document.querySelector('#lista-pensamentos')
         const paragrafoPensamento = document.createElement('p')
         paragrafoPensamento.classList.add('paragrafo-pensamento')
