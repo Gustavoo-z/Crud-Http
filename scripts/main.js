@@ -19,6 +19,18 @@ async function manipularSubmit(event) {
     }
 }
 
+async function manipularInput() {
+    const valorBusca = document.getElementById("campo-busca").value;
+    try {
+        const termoFiltrado = await api.buscarPensamentoTermo(valorBusca);
+        debugger
+        ui.renderizarPensamentos(termoFiltrado); 
+    } catch (error) {
+        alert('Erro ao buscar por termo.')
+        throw error;   
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     ui.renderizarPensamentos()
 
@@ -26,8 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     formulario.addEventListener('submit', manipularSubmit)
 
     const botaoCancelar = document.querySelector('#botao-cancelar');
-
     botaoCancelar.addEventListener('click', () => {
     document.getElementById("pensamento-form").reset();
-})
+    })
+
+    const inputBusca = document.getElementById('campo-busca');
+    inputBusca.addEventListener('input', manipularInput);
 })
