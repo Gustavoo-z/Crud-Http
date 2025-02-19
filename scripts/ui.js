@@ -56,6 +56,24 @@ const ui = {
         iconeEditar.alt = 'Editar'
         botaoEditar.appendChild(iconeEditar)
 
+        const botaoFavoritar = document.createElement('button')
+        botaoFavoritar.classList.add('botao-favorito')
+
+        botaoFavoritar.onclick = async () => {
+            try {
+                await api.atualizarFavorito(pensamento.id, !pensamento.favorito)
+                ui.renderizarPensamentos()
+            } catch (error) {
+                alert('Erro ao favoritar/desfavoritar')
+                throw error
+            }
+        }
+ 
+        const iconeFavoritar = document.createElement('img')
+        iconeFavoritar.src = pensamento.favorito ? 'assets/imagens/icone-favorito.png' : 'assets/imagens/icone-favorito_outline.png'
+        iconeFavoritar.alt = 'Favoritar'
+        botaoFavoritar.appendChild(iconeFavoritar)
+
         const botaoExcluir = document.createElement('button')
         botaoExcluir.classList.add('botao-excluir')
         botaoExcluir.onclick = async () => {
@@ -74,6 +92,7 @@ const ui = {
 
         const icones = document.createElement('div')
         icones.classList.add('icones')
+        icones.appendChild(botaoFavoritar)
         icones.appendChild(botaoEditar)
         icones.appendChild(botaoExcluir)
 

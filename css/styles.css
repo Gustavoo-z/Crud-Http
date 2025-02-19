@@ -277,7 +277,7 @@ h2, h3 {
   right: 16px;
 }
 
-.botao-editar, .botao-excluir {
+.botao-editar, .botao-excluir, .botao-favorito {
   background: none;
   border: none;
   cursor: pointer;
@@ -285,7 +285,7 @@ h2, h3 {
   margin-left: 8px;
 }
 
-.botao-editar img, .botao-excluir img {
+.botao-editar img, .botao-excluir img, .botao-favorito img {
   width: 20px;
   height: 20px;
 }
