@@ -28,7 +28,7 @@ const api = {
     async salvarPensamento(pensamento) {
         try {
             const data = stringParaData(pensamento.data)
-            const response = await axios.post(`${URL_BASE}pensamentos`, {...pensamento, data})
+            const response = await axios.post(`${URL_BASE}pensamentos`, {...pensamento, data: data.toISOString()})
             return await response.data;
         } catch (error) {
             alert("Erro ao salvar pensamento.")
