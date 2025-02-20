@@ -274,6 +274,10 @@ h2, h3 {
 .pensamento-data {
   font-size: 18px;
   font-weight: 400;
+  text-align: end;
+}
+
+.pensamento-data-input {
   text-align: start;
   margin-left: 0;
 }

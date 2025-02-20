@@ -1,15 +1,24 @@
 import ui from "./ui.js";
 const URL_BASE = 'http://localhost:3000/'
 
+const stringParaData = (string) => {
+    const [ano, mes, dia] = string.split("-")
+    return new Date(Date.UTC(ano, mes - 1, dia))
+}
+
 const api = {
     async buscarPensamentos() {
         try {
             let response = await axios.get(`${URL_BASE}pensamentos`)
-            response = await response.data;
-            if(response.length === 0) {
+            const pensamentos = await response.data;
+            if(pensamentos.length === 0) {
                 ui.apiVazia();
             } 
-            return response;
+            return pensamentos.map(pensamento => {
+                return {
+                    ...pensamento, data: new Date(pensamento.data)
+                }
+            });
         } catch (error) {
             ui.erroApi();
             throw error
@@ -18,7 +27,8 @@ const api = {
 
     async salvarPensamento(pensamento) {
         try {
-            const response = await axios.post(`${URL_BASE}pensamentos`, pensamento)
+            const data = stringParaData(pensamento.data)
+            const response = await axios.post(`${URL_BASE}pensamentos`, {...pensamento, data})
             return await response.data;
         } catch (error) {
             alert("Erro ao salvar pensamento.")
@@ -29,7 +39,10 @@ const api = {
     async buscarPensamentoId(id) {
         try {
             const response = await axios.get(`${URL_BASE}pensamentos/${id}`)
-            return await response.data;
+            const pensamento = await response.data;
+            return {
+                ...pensamento, data: new Date(pensamento.data)
+            }
         } catch (error) {
             alert("Erro ao buscar pensamento.")
             throw error
