@@ -1,6 +1,20 @@
 import ui from "./ui.js"
 import api from "./api.js"
 
+const pensamentosSet = new Set();
+
+async function adicionarChaveAoPensamento() {
+    try {
+        const pensamentos = await api.buscarPensamentos()
+        pensamentos.forEach(pensamento => {
+            const chavePensamento = `${pensamento.conteudo.trim().toLowerCase()}-${pensamento.autoria.trim().toLowerCase()}`
+            pensamentosSet.add(chavePensamento)
+        })
+    } catch (error) {
+        alert('Erro ao adicionar chave ao pensamento.')
+    }
+}
+
 function removerEspacos(string) {
     return string.replaceAll(/\s+/g, '')
 }
@@ -41,6 +55,13 @@ async function manipularSubmit(event) {
         return;
     }
 
+    const chaveNovoPensamento = `${conteudo.trim().toLowerCase()}-${autoria.trim().toLowerCase()}`
+
+    if(pensamentosSet.has(chaveNovoPensamento)) {
+        alert('Esse pensamento já existe.')
+        return;
+    }
+
     try {
         if (id) {
             await api.editarPensamento({id, conteudo, autoria, data})
@@ -67,6 +88,7 @@ async function manipularInput() {
 
 document.addEventListener('DOMContentLoaded', () => {
     ui.renderizarPensamentos()
+    adicionarChaveAoPensamento()
 
     const formulario = document.getElementById('pensamento-form')
     formulario.addEventListener('submit', manipularSubmit)
